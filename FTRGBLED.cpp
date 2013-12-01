@@ -50,12 +50,23 @@ void RGBLEDChain::update()
   if(!data)
     return;
   uint8_t *data_raw = (uint8_t *)data;
+
+  volatile uint8_t *port_sdi = portOutputRegister(digitalPinToPort(pin_sdi));
+  uint8_t mask_sdi = digitalPinToBitMask(pin_sdi);
+
+  volatile uint8_t *port_cki = portOutputRegister(digitalPinToPort(pin_cki));
+  uint8_t mask_cki = digitalPinToBitMask(pin_cki);
+
   for(int led = 0; led < length*3; led++) {
     uint8_t byte_raw = data_raw[led];
-    for(int8_t bit = 7; bit >= 0; bit--) {
-      digitalWrite(pin_sdi, (byte_raw & (1<<bit)) ? HIGH : LOW);
-      digitalWrite(pin_cki, HIGH);
-      digitalWrite(pin_cki, LOW);
+    for(uint8_t bit = 1<<7; bit > 0; bit>>=1) {
+      if(byte_raw & bit) {
+        *port_sdi |= mask_sdi;
+      } else {
+        *port_sdi &= ~mask_sdi;
+      }
+      *port_cki |= mask_cki;
+      *port_cki &= ~mask_cki;
     }
   }
   delay(1);
