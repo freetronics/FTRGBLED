@@ -45,17 +45,25 @@ void RGBLEDChain::setLED(int index, const FTLEDColour &colour)
   setLED(index, colour.red, colour.green, colour.blue);
 }
 
+// If anyone knows of a compiler builtin that will evaluate
+// to this type already from gcc, please let me know!
+#ifdef _AVR_
+#define reg_t uint8_t
+#else
+#define reg_t uint32_t
+#endif
+
 void RGBLEDChain::update()
 {
   if(!data)
     return;
-  uint8_t *data_raw = (uint8_t *)data;
+  reg_t *data_raw = (reg_t *)data;
 
-  volatile uint8_t *port_sdi = portOutputRegister(digitalPinToPort(pin_sdi));
-  uint8_t mask_sdi = digitalPinToBitMask(pin_sdi);
+  volatile reg_t *port_sdi = portOutputRegister(digitalPinToPort(pin_sdi));
+  reg_t mask_sdi = digitalPinToBitMask(pin_sdi);
 
-  volatile uint8_t *port_cki = portOutputRegister(digitalPinToPort(pin_cki));
-  uint8_t mask_cki = digitalPinToBitMask(pin_cki);
+  volatile reg_t *port_cki = portOutputRegister(digitalPinToPort(pin_cki));
+  reg_t mask_cki = digitalPinToBitMask(pin_cki);
 
   for(int led = 0; led < length*3; led++) {
     uint8_t byte_raw = data_raw[led];
