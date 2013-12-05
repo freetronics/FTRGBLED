@@ -53,7 +53,11 @@ Or like this:
     const FTLEDColour MY_COLOUR = { 200, 100, 0 };
     leds.setLED(0, MY_COLOUR);
 
-Calling setLED doesn't change the colours of the LEDs though. To do that you have to call `update()`:
+To set all the LEDs to the same colour, use the `setLEDs()` method:
+
+    leds.setLEDs(LED_GREEN);
+
+Calling setLED and setLEDs doesn't change the colours of the LEDs though. To actually change the colours you have to call `update()`:
 
     leds.update();
 

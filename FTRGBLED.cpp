@@ -1,3 +1,10 @@
+/* FTRGBLED Library
+
+   See https://github.com/freetronics/FTRGBLED
+
+   Copyright (C) 2013 Freetronics Pty Ltd.
+   Licensed under GNU Lesser General Public License V3, as described in the file LICENSE.
+*/
 #include "FTRGBLED.h"
 #include <stdint.h>
 
