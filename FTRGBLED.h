@@ -9,6 +9,15 @@ struct FTLEDColour {
   uint8_t blue;
 } __attribute__((packed));
 
+/* some predefined common colours */
+const FTLEDColour LED_BLACK = { 0, 0, 0 };
+const FTLEDColour LED_RED = { 255, 0, 0 };
+const FTLEDColour LED_GREEN = { 0, 255, 0 };
+const FTLEDColour LED_BLUE = { 0, 0, 255 };
+const FTLEDColour LED_YELLOW = { 255, 200, 0 };
+const FTLEDColour LED_VIOLET = { 255, 0, 200 };
+const FTLEDColour LED_WHITE = { 255, 200, 200 };
+
 class RGBLEDChain
 {
 public:
