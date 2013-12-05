@@ -32,6 +32,7 @@ public:
   void begin();
   void setLED(int index, const FTLEDColour &colour);
   void setLED(int index, byte red, byte green, byte blue);
+  void setLEDs(const FTLEDColour &colour);
   void update();
 
   inline FTLEDColour getLED(int index) { return data[index]; }

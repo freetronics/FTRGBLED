@@ -25,6 +25,13 @@ void RGBLEDChain::setLED(int index, const FTLEDColour &colour)
   setLED(index, colour.red, colour.green, colour.blue);
 }
 
+void RGBLEDChain::setLEDs(const FTLEDColour &colour)
+{
+  for(int i = 0; i < num_leds; i++) {
+    setLED(i, colour);
+  }
+}
+
 void RGBLEDChain::update()
 {
   if(!data)
