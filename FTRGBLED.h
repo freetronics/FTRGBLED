@@ -21,8 +21,8 @@ const FTLEDColour LED_WHITE = { 255, 200, 200 };
 class RGBLEDChain
 {
 public:
-  RGBLEDChain(int length, byte pin_cki, byte pin_sdi) :
-    length(length),
+  RGBLEDChain(int num_leds, byte pin_cki, byte pin_sdi) :
+    num_leds(num_leds),
     pin_cki(pin_cki),
     pin_sdi(pin_sdi),
     data(0)
@@ -40,7 +40,7 @@ public:
   byte getBlue(int index) { return data[index].blue; }
 
 private:
-  int length;
+  int num_leds;
   byte pin_cki;
   byte pin_sdi;
   FTLEDColour *data;

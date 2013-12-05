@@ -3,8 +3,8 @@
 
 void RGBLEDChain::begin()
 {
-  data = (FTLEDColour *)malloc(length*sizeof(FTLEDColour));
-  memset(data, 0, length*sizeof(FTLEDColour));
+  data = (FTLEDColour *)malloc(num_leds*sizeof(FTLEDColour));
+  memset(data, 0, num_leds*sizeof(FTLEDColour));
   pinMode(pin_cki, OUTPUT);
   digitalWrite(pin_cki, LOW);
   pinMode(pin_sdi, OUTPUT);
@@ -37,7 +37,7 @@ void RGBLEDChain::update()
   volatile uint8_t *port_cki = portOutputRegister(digitalPinToPort(pin_cki));
   uint8_t mask_cki = digitalPinToBitMask(pin_cki);
 
-  for(int led = 0; led < length*3; led++) {
+  for(int led = 0; led < num_leds*3; led++) {
     uint8_t byte_raw = data_raw[led];
     for(uint8_t bit = 1<<7; bit > 0; bit>>=1) {
       if(byte_raw & bit) {
