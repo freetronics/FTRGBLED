@@ -41,7 +41,7 @@ void RGBLEDChain::setLEDs(const FTLEDColour &colour)
 
 // If anyone knows of a compiler builtin that will evaluate
 // to reg_t already from gcc, please let me know!
-#ifdef _AVR_
+#ifdef __AVR__
 #define reg_t uint8_t
 #define delay20ns
 #else
