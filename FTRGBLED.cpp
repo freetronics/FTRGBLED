@@ -39,11 +39,15 @@ void RGBLEDChain::setLEDs(const FTLEDColour &colour)
   }
 }
 
+static inline void delay20ns() __attribute__((always_inline));
+
 // If anyone knows of a compiler builtin that will evaluate
 // to reg_t already from gcc, please let me know!
 #ifdef __AVR__
 #define reg_t uint8_t
-#define delay20ns
+static inline void delay20ns() { 
+  // Not necessary on AVR, max bit-banging rate is a lot less than 25MHz
+}
 #else
 #define reg_t uint32_t
 
@@ -57,7 +61,6 @@ void RGBLEDChain::setLEDs(const FTLEDColour &colour)
 // writes on Due the high edge is ~60ns wide and this is not wide
 // enough for reliable data transmission. Low edge is always wider due
 // to loop processing.
-static inline void delay20ns() __attribute__((always_inline));
 static inline void delay20ns(){
   /* 3 cycles per loop, 150MHz would be 20ns per loop */
   uint32_t n = (VARIANT_MCK / 150000000) + 1;
