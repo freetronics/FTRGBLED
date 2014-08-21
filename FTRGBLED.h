@@ -16,6 +16,9 @@ struct FTLEDColour {
   uint8_t blue;
 } __attribute__((packed));
 
+/* Allow American English spelling instead of British English */
+#define FTLEDColor FTLEDColour
+
 /* some predefined common colours */
 const FTLEDColour LED_BLACK = { 0, 0, 0 };
 const FTLEDColour LED_RED = { 255, 0, 0 };
